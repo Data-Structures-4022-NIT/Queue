@@ -26,3 +26,37 @@ class Queue:
     #Return the number of elements in the queue.
     def size(self):
         return len(self.items)
+
+
+    ### Question 1: Maze Solver using Queues
+    def maze_solver(maze, start, end):
+        #Define the movements directions
+        #right,left,up,down
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        #determining the dimensions of the maze.
+        rows, cols = len(maze), len(maze[0])
+        #Initialize the queue and visited set
+        queue = Queue()
+        visited = set()
+        #Add the starting point to the queue and visited set
+        queue.enqueue(start)
+        visited.add(start)
+        #Keep track of the path
+        path = {start: []}
+
+        while not queue.is_empty():
+            row,col = queue.dequeue()
+
+            #Check if it is the end point
+            if (row, col) == end:
+                return path[(row, col)]
+
+            #Explore the neighboring cells
+            for dx, dy in directions:
+                new_row, new_col = row + dx, col + dy
+                if 0 <= new_row < rows and 0 <= new_col < cols and maze[new_row][new_col] == '0' and (
+                new_row, new_col) not in visited:
+                    queue.enqueue((new_row, new_col))
+                    visited.add((new_row, new_col))
+                    path[(new_row, new_col)] = path[(row, col)] + [(new_row, new_col)]
+        return None
