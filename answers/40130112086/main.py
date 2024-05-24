@@ -60,3 +60,18 @@ class Queue:
                     visited.add((new_row, new_col))
                     path[(new_row, new_col)] = path[(row, col)] + [(new_row, new_col)]
         return None
+
+    ###Question 2: Josephus Problem
+    def josephus(n, k):
+        #Creating a queue
+        queue = Queue()
+        for i in range(1, n + 1):
+            queue.enqueue(i)
+
+        while queue.size() > 1:
+            #Skip k-1 participants
+            for i in range(k - 1):
+                queue.enqueue(queue.dequeue())
+            #Eliminate the one
+            queue.dequeue()
+        return queue.dequeue()
