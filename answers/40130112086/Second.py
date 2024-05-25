@@ -8,7 +8,7 @@ class PriorityQueue:
     def enqueue(self, item, priority):
         self.queue.append((priority, item))
         self.queue.sort(reverse=True)
-        
+
     #Remove and return the item with the highest priority from the queue.
     def dequeue(self):
         if not self.is_empty():
